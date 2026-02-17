@@ -7,13 +7,10 @@ This folder contains small **offline** helpers to prepare a reproducible negativ
   - reads `clients.txt` (one legal entity per line)
   - generates a query package (`.csv`) for RU/EN negative-media searches
 - `collect_findings.py` (optional):
-  - calls an approved SERP API provider (currently: **SerpAPI / Google engine**)
+  - calls an approved SERP API provider
   - collects top N results per query into a flat CSV
 - `collect_findings_yandex.py` (optional):
   - collects results via **Yandex Cloud Search API**
-  - outputs a flat CSV similar to `collect_findings.py`
-- `collect_findings_google.py` (optional):
-  - collects results via **Google Custom Search JSON API** (Programmable Search Engine)
   - outputs a flat CSV similar to `collect_findings.py`
 
 ### Why this is offline
@@ -21,7 +18,7 @@ Collecting results from Google/Bing/etc typically requires an approved provider,
 This repo therefore focuses on **query generation + reporting scaffolding**.
 
 ### Usage
-Generate queries + report template for the last year:
+Generate queries + report template for the last 2 years:
 
 ```bash
 python3 negative_media.py --clients clients.txt --out out
@@ -34,12 +31,12 @@ python3 negative_media.py --clients clients.txt --start 2025-01-01 --end 2025-12
 ```
 
 ### Outputs
-- `out/queries_YYYY-MM-DD.csv`:
+- `out/queries_{}.csv`:
   - one row per (client × category × language)
   - can be fed into your approved search tooling/provider
-- `out/report_template_YYYY-MM-DD.md`:
+- `out/report_template_{}.md`:
   - a structured template to register sourced findings
-- `out/findings_YYYY-MM-DD.csv` (if you run `collect_findings.py`):
+- `out/findings_{}.csv` (if you run `collect_findings.py`):
   - one row per (query result)
 
 ### Optional: collect results via SerpAPI
@@ -55,14 +52,14 @@ The scripts will auto-load `.env` if it exists.
 2) Collect last-year results (top 10 per query):
 
 ```bash
-python3 collect_findings.py --queries out/queries_YYYY-MM-DD.csv --out out --num 10
+python3 collect_findings.py --queries out/queries_{}.csv --out out --num 10
 ```
 
 Cost control examples:
 
 ```bash
 # Only RU queries, first 30 queries total
-python3 collect_findings.py --queries out/queries_YYYY-MM-DD.csv --langs ru --max-queries 30
+python3 collect_findings.py --queries out/queries_{}.csv --langs ru --max-queries 30
 ```
 
 ### Optional: collect results via Yandex APIs
@@ -82,7 +79,7 @@ Or put the same variables into `.env` (auto-loaded).
 Run:
 
 ```bash
-python3 collect_findings_yandex.py --queries out/queries_YYYY-MM-DD.csv --out out --num 10
+python3 collect_findings_yandex.py --queries out/queries_{}.csv --out out --num 10
 ```
 
 If your setup requires IAM token auth instead:
