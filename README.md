@@ -6,7 +6,6 @@ This folder contains small **offline** helpers to prepare a reproducible negativ
 - `negative_media.py`:
   - reads `clients.txt` (one legal entity per line)
   - generates a query package (`.csv`) for RU/EN negative-media searches
-  - generates a report template (`.md`) with 1 section per client
 - `collect_findings.py` (optional):
   - calls an approved SERP API provider (currently: **SerpAPI / Google engine**)
   - collects top N results per query into a flat CSV
