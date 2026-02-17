@@ -93,33 +93,6 @@ export YANDEX_IAM_TOKEN="YOUR_IAM_TOKEN"
 python3 collect_findings_yandex.py --auth-scheme bearer --queries out/queries_YYYY-MM-DD.csv --out out --num 10
 ```
 
-### Optional: collect results via Google Custom Search JSON API
-Prereqs:
-- Enable **Custom Search API** in Google Cloud for your project
-- Create API key → set `GOOGLE_API_KEY`
-- Create a **Programmable Search Engine** set to search the entire web → set `GOOGLE_CX`
-
-Set creds:
-
-```bash
-export GOOGLE_API_KEY="YOUR_KEY"
-export GOOGLE_CX="YOUR_CX"
-```
-
-Note: `GOOGLE_API_KEY` is created in Google Cloud Console and usually looks like `AIza...`.
-
-Collect last-year results (top 10 per query, 1 page):
-
-```bash
-python3 collect_findings_google.py --queries out/queries_YYYY-MM-DD.csv --out out --num 10 --pages 1
-```
-
-Cost control example (only first 20 queries):
-
-```bash
-python3 collect_findings_google.py --queries out/queries_YYYY-MM-DD.csv --max-queries 20 --langs ru
-```
-
 ### Notes for audit-quality results
 - Always store **source URL + capture date + excerpt** (or an internal archive link).
 - Track **match confidence** (to avoid name collisions).
